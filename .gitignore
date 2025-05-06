@@ -1,3 +1,3 @@
-project/yst.log
+project/*.log
 yst_data_with_videos/
 scrape_video_link.py
