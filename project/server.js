@@ -21,9 +21,24 @@ const MIME_TYPES = {
 // 项目根目录
 const PROJECT_ROOT = __dirname;
 const DATA_ROOT = path.join(__dirname, '..');
+const AUDIT_LOG_FILE = path.join(__dirname, 'audit.log');
+
 
 // 创建HTTP服务器
 const server = http.createServer((req, res) => {
+  // --- Begin Addition: Audit Logging Logic ---
+  const ip = req.socket.remoteAddress;
+  const timestamp = new Date().toISOString();
+  const logMessage = `[${timestamp}] - IP: ${ip} - Method: ${req.method} - URL: ${req.url}\n`;
+
+  // Append the log message to the audit log file
+  fs.appendFile(AUDIT_LOG_FILE, logMessage, (err) => {
+    if (err) {
+      console.error('Failed to write to audit log:', err);
+    }
+  });
+  // --- End Addition ---
+  
   // 获取请求URL的路径部分
   let filePath = req.url;
   
