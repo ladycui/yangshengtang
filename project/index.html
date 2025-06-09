@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>健康资源列表</title>
-    <link rel="stylesheet" href="styles.css">
+
+    <title>养生堂节目列表 | 全球健康公益项目</title>
+
+    <!-- SEO Meta -->
+    <meta name="description" content="养生堂节目索引，全球健康公益项目，汇集养生堂等健康节目，提供按主题、年份筛选，帮助用户获取权威健康知识。">
+    <meta name="keywords" content="养生堂, 健康节目, 健康视频, 健康知识, 健康资源, 健康公益, 老年健康, 中老年健康">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "养生堂节目列表 | 全球健康公益项目",
+            "url": "https://yst.dkool.fun/",
+            "description": "全球健康公益项目，汇集养生堂等健康节目，提供按主题、年份筛选，帮助用户获取权威健康知识。",
+            "inLanguage": "zh-CN",
+            "publisher": {
+                "@type": "Organization",
+                "name": "全球健康公益项目",
+                "url": "https://yst.dkool.fun/"
+            }
+        }
+    </script>
 </head>
+
 <body>
     <!-- 老年人友好模式切换按钮 -->
     <div class="mode-toggle">
@@ -23,35 +50,37 @@
             <h1>养生堂节目列表</h1>
             <p>为促进全球健康共享的公益项目</p>
         </header>
-        
-        <div class="controls">
+
+        <section class="controls">
+            <h2>按年份筛选节目</h2>
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="搜索标题...">
             </div>
             <div class="filter-container">
                 <select id="yearFilter">
                     <option value="all">所有年份</option>
-                    <option value="2018">2018</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
                     <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
                 </select>
             </div>
-        </div>
-        
+        </section>
+
         <!-- 添加标签过滤区域 -->
-        <div class="tags-container">
-            <h3>按健康主题筛选：</h3>
+        <section class="tags-container">
+            <h2>按健康主题筛选</h2>
             <div class="tags-list" id="tagsContainer">
                 <!-- 标签将由JavaScript动态生成 -->
             </div>
-        </div>
+        </section>
 
-        <div class="table-container">
+        <section class="table-container">
+            <h2>健康节目列表</h2>
             <table id="resourceTable">
                 <thead>
                     <tr>
@@ -66,7 +95,7 @@
                     <!-- Data will be inserted here by JavaScript -->
                 </tbody>
             </table>
-        </div>
+        </section>
 
         <!-- 添加分页控件 -->
         <div id="pagination" class="pagination">
@@ -78,31 +107,32 @@
         <div id="loading">加载中，请稍候...</div>
         <div id="noResults" style="display: none;">没有找到匹配的结果</div>
     </div>
-    
+
     <!-- 老年人友好视图 -->
     <div id="seniorView" class="container senior-container" style="display: none;">
         <header class="senior-header">
             <h1>养生堂节目列表</h1>
             <p>便于阅读的大字体版本</p>
         </header>
-        
-        <div class="senior-controls">
+
+        <section class="senior-controls">
+            <h2>搜索健康话题</h2>
             <div class="senior-search">
                 <label for="seniorSearchInput" class="senior-label">搜索健康话题：</label>
                 <input type="text" id="seniorSearchInput" class="senior-input" placeholder="输入您感兴趣的健康话题...">
             </div>
-            
+
             <div class="senior-tags-container">
-                <h3>常见健康主题：</h3>
+                <h2>常见健康主题</h2>
                 <div class="senior-tags-list" id="seniorTagsContainer">
                     <!-- 标签将由JavaScript动态生成 -->
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="senior-resources" id="seniorResources">
+        <section class="senior-resources" id="seniorResources">
             <!-- 资源卡片将由JavaScript动态生成 -->
-        </div>
+        </section>
 
         <!-- 老年人友好分页 -->
         <div id="seniorPagination" class="senior-pagination">
@@ -114,19 +144,20 @@
         <div id="seniorLoading" class="senior-loading">加载中，请稍候...</div>
         <div id="seniorNoResults" class="senior-no-results" style="display: none;">没有找到相关内容，请尝试其他关键词</div>
     </div>
-    
-    <footer>
+
+    <footer role="contentinfo">
         <p>全球健康公益项目 © 2025</p>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
+
     <!-- Cloudflare Web Analytics -->
-    <script 
-        defer 
-        src="https://static.cloudflareinsights.com/beacon.min.js" 
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
         data-cf-beacon='{"token": "e11506fa6a564921b4b198ebfff47544"}'>
-    </script>
-<!-- End Cloudflare Web Analytics -->
+        </script>
+    <!-- End Cloudflare Web Analytics -->
 
 </body>
-</html> 
+
+</html>

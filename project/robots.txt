@@ -1,0 +1,9 @@
+# robots.txt for https://yst.dkool.fun/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://yst.dkool.fun/sitemap.xml
+
+# Disallow: /private/
+# Disallow: /test/
