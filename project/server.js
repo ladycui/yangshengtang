@@ -27,7 +27,7 @@ const AUDIT_LOG_FILE = path.join(__dirname, 'audit.log');
 // 创建HTTP服务器
 const server = http.createServer((req, res) => {
   // --- Begin Addition: Audit Logging Logic ---
-  const ip = req.socket.remoteAddress;
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   const timestamp = new Date().toISOString();
   const logMessage = `[${timestamp}] - IP: ${ip} - Method: ${req.method} - URL: ${req.url}\n`;
 
@@ -38,7 +38,7 @@ const server = http.createServer((req, res) => {
     }
   });
   // --- End Addition ---
-  
+
   // 获取请求URL的路径部分
   let filePath = req.url;
   
