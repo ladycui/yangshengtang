@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { writeLog } = require('./logger'); // 引入我们新的日志模块
 
 const PORT = 8081;
 
@@ -27,16 +28,21 @@ const AUDIT_LOG_FILE = path.join(__dirname, 'audit.log');
 // 创建HTTP服务器
 const server = http.createServer((req, res) => {
   // --- Begin Addition: Audit Logging Logic ---
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  const timestamp = new Date().toISOString();
-  const logMessage = `[${timestamp}] - IP: ${ip} - Method: ${req.method} - URL: ${req.url}\n`;
+  console.log('ip from header x-forwarded-for: ', req.headers['x-forwarded-for'] );
+  console.log('req.socket.remoteAddress: ', req.socket.remoteAddress);
 
-  // Append the log message to the audit log file
-  fs.appendFile(AUDIT_LOG_FILE, logMessage, (err) => {
-    if (err) {
-      console.error('Failed to write to audit log:', err);
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+
+  const localIPs = ['127.0.0.1', '::1', '::ffff:127.0.0.1'];
+
+    // 如果 IP 不是本地地址，则记录日志
+    if (ip && !localIPs.includes(ip)) {
+        const timestamp = new Date().toISOString();
+        const logMessage = `[${timestamp}] - IP: ${ip} - Method: ${req.method} - URL: ${req.url}`;
+        
+        // 使用新的日志模块写入日志
+        writeLog(logMessage);
     }
-  });
   // --- End Addition ---
 
   // 获取请求URL的路径部分
