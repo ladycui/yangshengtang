@@ -16,13 +16,13 @@ const MIME_TYPES = {
   '.jpeg': 'image/jpeg',
   '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon'
+  '.ico': 'image/x-icon',
+  '.xml': 'application/xml'
 };
 
 // 项目根目录
 const PROJECT_ROOT = __dirname;
 const DATA_ROOT = path.join(__dirname, '..');
-const AUDIT_LOG_FILE = path.join(__dirname, 'audit.log');
 
 
 // 创建HTTP服务器

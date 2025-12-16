@@ -69,6 +69,14 @@
 ## 如何使用
 
 ### 本地测试
+0. 安装环境
+> conda create -n yst python=3.12
+> conda activate yst
+> pip install -r requirements.txt
+> playwright install
+
+更新数据
+> python update_yst_data.py 
 
 1. 运行启动脚本启动服务器：
    ```
@@ -109,6 +117,12 @@
 2. 确保yst_data目录能被正确访问
 3. 配置Web服务器指向上传的目录
 4. 通过配置的URL访问网站
+
+#### stop the server
+
+> lsof -i :8081
+> kill -9 <pid>
+
 
 ## 数据来源
 
