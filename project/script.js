@@ -157,42 +157,40 @@ async function init() {
         document.getElementById('seniorLoading').style.display = 'block';
 
         // 加载所有年份的数据
-        const years = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
-        const dataPromises = years.map(year => fetchYearData(year));
+        // 定义年份列表（按时间倒序）
+        const years = ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'];
 
-        // 等待所有数据加载完成
-        const results = await Promise.allSettled(dataPromises);
+        // 1. 优先加载最新年份（2025）的数据
+        const latestYear = years[0];
+        const latestData = await fetchYearData(latestYear);
 
-        // 处理成功加载的数据
-        results.forEach((result, index) => {
-            if (result.status === 'fulfilled' && result.value.length > 0) {
-                // 为每条数据添加年份标识
-                const yearData = result.value.map(item => ({
-                    ...item,
-                    year: years[index],
-                    tags: assignTagsToItem(item) // 添加标签
-                }));
-                allData = [...allData, ...yearData];
-            }
-        });
+        if (latestData.length > 0) {
+            const yearData = latestData.map(item => ({
+                ...item,
+                year: latestYear,
+                tags: assignTagsToItem(item)
+            }));
+            allData = [...allData, ...yearData];
+        }
 
-        // 创建标签过滤器（标准模式）
+        // 初始化UI（使用第一批数据）
         createTagFilters();
-
-        // 创建标签过滤器（老年人模式）
         createSeniorTagFilters();
 
-        // 重置分页到第一页
         currentPage = 1;
         seniorCurrentPage = 1;
 
-        // 更新表格显示
         updateTable();
         updateSeniorView();
 
         // 隐藏加载指示器
         document.getElementById('loading').style.display = 'none';
         document.getElementById('seniorLoading').style.display = 'none';
+
+        // 2. 后台加载剩余年份的数据
+        loadRemainingYears(years.slice(1));
+
+
 
         // 添加搜索和筛选事件监听器（标准模式）
         document.getElementById('searchInput').addEventListener('input', () => {
@@ -256,6 +254,30 @@ async function init() {
         console.error('初始化失败:', error);
         document.getElementById('loading').textContent = '加载数据失败，请刷新页面重试。';
         document.getElementById('seniorLoading').textContent = '加载数据失败，请刷新页面重试。';
+    }
+}
+
+// 后台加载剩余年份数据
+async function loadRemainingYears(years) {
+    for (const year of years) {
+        try {
+            const data = await fetchYearData(year);
+            if (data.length > 0) {
+                const yearData = data.map(item => ({
+                    ...item,
+                    year: year,
+                    tags: assignTagsToItem(item)
+                }));
+                allData = [...allData, ...yearData];
+
+                // 每次加载完一年，更新一次UI以反映新数据（更新总数和搜索范围）
+                // 保持当前页码不变，避免用户阅读时跳变，但在搜索结果中能看到新数据
+                updateTable();
+                updateSeniorView();
+            }
+        } catch (err) {
+            console.warn(`后台加载 ${year} 年数据失败:`, err);
+        }
     }
 }
 
