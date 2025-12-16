@@ -1,0 +1,28 @@
+{
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "/project/index.html"
+        },
+        {
+            "source": "/index.html",
+            "destination": "/project/index.html"
+        },
+        {
+            "source": "/styles.css",
+            "destination": "/project/styles.css"
+        },
+        {
+            "source": "/script.js",
+            "destination": "/project/script.js"
+        },
+        {
+            "source": "/favicon.ico",
+            "destination": "/project/favicon.ico"
+        },
+        {
+            "source": "/google672d3e4412e857f2.html",
+            "destination": "/project/google672d3e4412e857f2.html"
+        }
+    ]
+}
