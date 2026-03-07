@@ -11,6 +11,23 @@ body {
     background-color: #f8f9fa;
 }
 
+/* GitHub 全局链接 */
+.global-github-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.global-github-link:hover {
+    color: #3498db;
+}
+
 /* 老年人模式切换按钮 */
 .mode-toggle {
     position: fixed;
@@ -75,11 +92,13 @@ header p {
     flex-wrap: wrap;
 }
 
-.search-container, .filter-container {
+.search-container,
+.filter-container {
     margin-bottom: 10px;
 }
 
-input, select {
+input,
+select {
     padding: 10px 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -154,7 +173,8 @@ table {
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #eee;
@@ -166,8 +186,13 @@ th {
     font-weight: 600;
 }
 
-tr:hover {
-    background-color: #f8f9fa;
+tr.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+tr.clickable-row:hover {
+    background-color: #f1f8fc;
 }
 
 .link-btn {
@@ -218,7 +243,8 @@ tr:hover {
     color: #666;
 }
 
-#loading, #noResults {
+#loading,
+#noResults {
     text-align: center;
     padding: 20px;
     font-size: 18px;
@@ -415,7 +441,8 @@ footer {
     font-weight: 600;
 }
 
-.senior-loading, .senior-no-results {
+.senior-loading,
+.senior-no-results {
     text-align: center;
     padding: 30px;
     font-size: 24px;
@@ -426,20 +453,21 @@ footer {
     .controls {
         flex-direction: column;
     }
-    
-    .search-container, .filter-container {
+
+    .search-container,
+    .filter-container {
         width: 100%;
     }
-    
+
     .tags-list {
         gap: 8px;
     }
-    
+
     .tag {
         padding: 5px 10px;
         font-size: 13px;
     }
-    
+
     .pagination {
         flex-direction: column;
         gap: 10px;
@@ -455,6 +483,16 @@ footer {
 
     .senior-mode-icon {
         margin-right: 0;
+    }
+
+    .global-github-link {
+        top: 15px;
+        left: 15px;
+    }
+
+    .global-github-link svg {
+        width: 22px;
+        height: 22px;
     }
 
     .senior-tags-list {
@@ -474,4 +512,4 @@ footer {
         flex-direction: column;
         gap: 15px;
     }
-} 
+}

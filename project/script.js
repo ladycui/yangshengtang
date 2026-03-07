@@ -618,7 +618,19 @@ function updateTable() {
                 linkBtn.textContent = '查看';
                 linkBtn.className = 'link-btn';
                 linkBtn.target = '_blank'; // 在新标签页打开链接
+
+                // 阻止链接点击事件冒泡，防止触发两次窗口打开
+                linkBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+
                 linkCell.appendChild(linkBtn);
+
+                // 整行可点击
+                row.classList.add('clickable-row');
+                row.addEventListener('click', () => {
+                    window.open(item.link, '_blank');
+                });
             } else {
                 linkCell.textContent = '无链接';
             }
